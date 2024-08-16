@@ -1,7 +1,9 @@
 import grid from "gridfs-stream";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-const url = "https://blog-backend-project-deployees.onrender.com";
+const url = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
 
 let gfs, gridfsBucket;
 const conn = mongoose.connection;
@@ -16,7 +18,7 @@ conn.once("open", () => {
 export const uploadImage = (request, response) => {
   if (!request.file) return response.status(404).json("File not found");
 
-  const imageUrl = `${url}/file/${request.file.filename}`;
+  const imageUrl = `${url }/file/${request.file.filename}`;
 
   response.status(200).json(imageUrl);
 };
